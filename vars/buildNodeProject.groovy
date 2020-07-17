@@ -27,8 +27,41 @@ def call(Map pipelineParams = [:]) {
                         logger.banner(STAGE_NAME)
                         commitMessage = debianUtil.getLastGitComment();
                         logger.info("DEPLOY_APPLICATION: $env.DEPLOY_APPLICATION");
-                        logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");
-                        //debianUtil.clean();
+                        logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");                        
+                    }
+                }
+            }
+            stage("Deploy Artifact") {
+                steps {
+                    script {
+                        logger.banner(STAGE_NAME)
+                        debianUtil.deploy();
+                    }
+                }
+            }
+            stage('Build Docker Image') {
+                steps {
+                    script {
+                        logger.banner(STAGE_NAME)
+                        logger.info('Docker image cleanup before release')
+                        try {
+                            timeout(time: 10, unit: 'SECONDS') {
+                                debianUtil.removeDocker();
+                            }
+                        } catch (err) {
+                            logger.info('Caught Exception: ${err}')
+                            currentBuild.result = "SUCCESS"
+                        }
+                        logger.info('Build Docker image')
+                        debianUtil.buildDocker();
+                    }
+                }
+            }
+            stage('Push docker image') {
+                steps {
+                    script {
+                        logger.banner(STAGE_NAME)
+                        debianUtil.pushDocker();
                     }
                 }
             }
@@ -46,7 +79,7 @@ def call(Map pipelineParams = [:]) {
                         currentBuild.result = "SUCCESS"
                     }
                 }
-            }           
+            }
         }
     }
 }
