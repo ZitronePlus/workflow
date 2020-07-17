@@ -38,7 +38,7 @@ def call(Map pipelineParams = [:]) {
                 steps {
                     script {
                         echo (STAGE_NAME)
-                         git 'https://github.com/ZitronePlus/MOC.git'
+                         //git 'https://github.com/ZitronePlus/MOC.git'
                         //logger.banner(STAGE_NAME)
                         //logger.info('Docker image cleanup before release') 
                         dockerImage = docker.build registry + "0.0.1"
