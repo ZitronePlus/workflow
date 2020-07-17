@@ -21,6 +21,7 @@ def call(Map pipelineParams = [:]) {
             DEPLOY_APPLICATION = getDeployTarget(pipelineParams)
             registry = "docker_hub_account/lemtron"
             registryCredential = pipelineParams.get('dockerPwd')
+            dockerImage = ''
         }
         stages {
             stage('Setup') {
@@ -36,17 +37,21 @@ def call(Map pipelineParams = [:]) {
             stage('Build Docker Image') {
                 steps {
                     script {
-                        echo (' ')
+                        echo (STAGE_NAME)
+                         git 'https://github.com/ZitronePlus/MOC.git'
                         //logger.banner(STAGE_NAME)
                         //logger.info('Docker image cleanup before release') 
-                        docker.build registry + "0.0.1"
+                        dockerImage = docker.build registry + "0.0.1"
                     }
                 }
             }
             stage('Push docker image') {
                 steps {
                     script {
-                         echo (' ')
+                         echo (STAGE_NAME)
+                        docker.withRegistry( '', registryCredential ) {
+                            dockerImage.push()
+                         }
                         //logger.banner(STAGE_NAME)                   
                     }
                 }
