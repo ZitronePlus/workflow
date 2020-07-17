@@ -25,8 +25,7 @@ def call(Map pipelineParams = [:]) {
                 steps {
                     script {
                         logger.banner(STAGE_NAME)
-                        commitMessage = debianUtil.getLastGitComment();
-                        def pom = readMavenPom(file: 'pom.xml');
+                        commitMessage = debianUtil.getLastGitComment();                        
                         logger.info("DEPLOY_APPLICATION: $env.DEPLOY_APPLICATION");
                         logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");
                         debianUtil.clean();
