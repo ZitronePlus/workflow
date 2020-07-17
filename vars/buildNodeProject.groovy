@@ -1,5 +1,5 @@
 def call(Map pipelineParams = [:]) {
-  
+
     def commitMessage = "";
 
     pipeline {
@@ -20,7 +20,7 @@ def call(Map pipelineParams = [:]) {
         environment {
             DEPLOY_APPLICATION = getDeployTarget(pipelineParams);
         }
-       stages {
+        stages {
             stage('Setup') {
                 steps {
                     script {
@@ -29,18 +29,19 @@ def call(Map pipelineParams = [:]) {
                         def pom = readMavenPom(file: 'pom.xml');
                         logger.info("DEPLOY_APPLICATION: $env.DEPLOY_APPLICATION");
                         logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");
-                        debianUtil.clean();                       
+                        debianUtil.clean();
                     }
                 }
             }
-       }
+        }
     }
-  
- def getDeployTarget(Map pipelineParams) {
+}
+
+def getDeployTarget(Map pipelineParams) {
     if (pipelineParams.containsKey('deployApplication') && env.DEPLOY_APPLICATION == 'off')
         return pipelineParams.get('deployApplication');
     else if (env.DEPLOY_APPLICATION == "null")
         return "off"
 
     return env.DEPLOY_APPLICATION
-}
+    }
