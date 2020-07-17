@@ -1,6 +1,6 @@
 def call(body) {
-    def dockerRegistry = (env.DOCKER_REGISTRY) ?: 'itoah-docker-registry.ops.server.lan';
-    def dockerImage = (env.DOCKER_OX_NODE_IMAGE) ?: dockerRegistry + '/moc/moc-debian:stretch-slim';
+    def dockerRegistry = (env.DOCKER_REGISTRY) ?: 'https://hub.docker.com';
+    def dockerImage = (env.DOCKER_OX_NODE_IMAGE) ?: dockerRegistry + '/_/debian:stretch-slim';
     def proxyUrl = proxyArgs.proxyUrl();
 
     //Login and download the image
