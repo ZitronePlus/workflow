@@ -84,3 +84,9 @@ def buildDocker() {
 def pushDocker() {
     execute("docker:push", "-Pdocker -DskipTests -Ddocker.host.fqdn=$env.NODE_NAME")
 }
+
+def getLastGitComment() {
+    debianUtil{
+        return sh (script: "git log -1 --pretty=%B", returnStdout: true).trim().toLowerCase();
+    }
+}
