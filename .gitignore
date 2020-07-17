@@ -1,0 +1,20 @@
+# eclipse project file
+.settings/
+.classpath
+.project
+
+# IntelliJ project files 
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# Maven 
+target/
+release.properties
+pom.xml.releaseBackup
+pom.xml.tag
+
+#ETC
+log/
+bin/
