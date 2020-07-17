@@ -18,7 +18,9 @@ def call(Map pipelineParams = [:]) {
 
         }
         environment {
-            DEPLOY_APPLICATION = getDeployTarget(pipelineParams);
+            DEPLOY_APPLICATION = getDeployTarget(pipelineParams)
+            registry = "docker_hub_account/lemtron"
+            registryCredential = pipelineParams.get('dockerPwd')
         }
         stages {
             stage('Setup') {
@@ -36,7 +38,8 @@ def call(Map pipelineParams = [:]) {
                     script {
                         echo (' ')
                         //logger.banner(STAGE_NAME)
-                        //logger.info('Docker image cleanup before release')                       
+                        //logger.info('Docker image cleanup before release') 
+                        docker.build registry + "0.0.1"
                     }
                 }
             }
