@@ -41,7 +41,7 @@ def call(Map pipelineParams = [:]) {
                          //git 'https://github.com/ZitronePlus/MOC.git'
                         //logger.banner(STAGE_NAME)
                         //logger.info('Docker image cleanup before release') 
-                        docker.withRegistry( '', registryCredential ) {
+                        docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
                         dockerImage = docker.build registry + "0.0.1"
                         }
                     }
@@ -51,7 +51,7 @@ def call(Map pipelineParams = [:]) {
                 steps {
                     script {
                          echo (STAGE_NAME)
-                        docker.withRegistry( '', registryCredential ) {
+                        docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
                             dockerImage.push()
                          }
                         //logger.banner(STAGE_NAME)                   
