@@ -2,7 +2,6 @@
 def call(body) {
     def dockerRegistry = (env.DOCKER_REGISTRY) ?: 'https://hub.docker.com';
     def dockerImage = (env.DOCKER_OX_NODE_IMAGE) ?: dockerRegistry + '/_/debian:stretch-slim';      
-    'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'  
     //Login and download the image
     //withDockerRegistry(registry: [url: 'https://' + dockerRegistry, credentialsId: 'jenkins-tooluser']) {
         sh("docker pull ${dockerImage}");
