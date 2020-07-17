@@ -25,12 +25,28 @@ def call(Map pipelineParams = [:]) {
                 steps {
                     script {
                         logger.banner(STAGE_NAME)
-                        //commitMessage = debianUtil.getLastGitComment();                        
+                        commitMessage = debianUtil.getLastGitComment();
                         logger.info("DEPLOY_APPLICATION: $env.DEPLOY_APPLICATION");
-                        logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");                        
+                        logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");
+                        //debianUtil.clean();
                     }
                 }
             }
+        }
+        post {
+            always {
+                script {
+                    logger.info('CLEANUP: Stop and remove local docker container. Timeout is set to 10 seconds.')
+                    try {
+                        timeout(time: 10, unit: 'SECONDS') {
+                            //mavenUtil.removeDocker();
+                        }
+                    } catch (err) {
+                        logger.info('Caught Exception: ${err}')
+                        currentBuild.result = "SUCCESS"
+                    }
+                }
+            }           
         }
     }
 }
