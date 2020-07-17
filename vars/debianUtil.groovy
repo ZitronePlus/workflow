@@ -1,7 +1,15 @@
+
 def call(body) {
     def dockerRegistry = (env.DOCKER_REGISTRY) ?: 'https://hub.docker.com';
     def dockerImage = (env.DOCKER_OX_NODE_IMAGE) ?: dockerRegistry + '/_/debian:stretch-slim';   
 
+     tools {
+    // a bit ugly because there is no `@Symbol` annotation for the DockerTool
+    // see the discussion about this in PR 77 and PR 52: 
+    // https://github.com/jenkinsci/docker-commons-plugin/pull/77#discussion_r280910822
+    // https://github.com/jenkinsci/docker-commons-plugin/pull/52
+    'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+  }
     //Login and download the image
     //withDockerRegistry(registry: [url: 'https://' + dockerRegistry, credentialsId: 'jenkins-tooluser']) {
         sh("docker pull ${dockerImage}");
