@@ -34,6 +34,7 @@ def call(Map pipelineParams = [:]) {
             stage('Build Docker Image') {
                 steps {
                     script {
+                        echo (' ')
                         //logger.banner(STAGE_NAME)
                         //logger.info('Docker image cleanup before release')                       
                     }
@@ -42,6 +43,7 @@ def call(Map pipelineParams = [:]) {
             stage('Push docker image') {
                 steps {
                     script {
+                         echo (' ')
                         //logger.banner(STAGE_NAME)                   
                     }
                 }
