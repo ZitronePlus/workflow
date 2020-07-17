@@ -41,7 +41,9 @@ def call(Map pipelineParams = [:]) {
                          //git 'https://github.com/ZitronePlus/MOC.git'
                         //logger.banner(STAGE_NAME)
                         //logger.info('Docker image cleanup before release') 
+                        docker.withRegistry( '', registryCredential ) {
                         dockerImage = docker.build registry + "0.0.1"
+                        }
                     }
                 }
             }
