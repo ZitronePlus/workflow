@@ -27,8 +27,7 @@ def call(Map pipelineParams = [:]) {
                         logger.banner(STAGE_NAME)
                         commitMessage = debianUtil.getLastGitComment();                        
                         logger.info("DEPLOY_APPLICATION: $env.DEPLOY_APPLICATION");
-                        logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");
-                        debianUtil.clean();
+                        logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");                        
                     }
                 }
             }
