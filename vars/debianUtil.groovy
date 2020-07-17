@@ -71,6 +71,12 @@ def uploadDebs(String sourceFolder, String packageName, String repoName = 'mw_de
     }
 }
 
+def execute(String goals, String options = "") {
+    debianUtil{
+        sh "$MVN_CMD $goals $options"
+    }
+}
+
 def removeDocker() {
     //logger.info('New: Stop Docker container and then remove the Image')
     execute("docker:stop docker:remove", "-Pdocker -DskipTests -Ddocker.host.fqdn=$env.NODE_NAME")
