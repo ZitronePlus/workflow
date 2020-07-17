@@ -1,16 +1,15 @@
 def call(body) {
     def dockerRegistry = (env.DOCKER_REGISTRY) ?: 'https://hub.docker.com';
-    def dockerImage = (env.DOCKER_OX_NODE_IMAGE) ?: dockerRegistry + '/_/debian:stretch-slim';
-    def proxyUrl = proxyArgs.proxyUrl();
+    def dockerImage = (env.DOCKER_OX_NODE_IMAGE) ?: dockerRegistry + '/_/debian:stretch-slim';   
 
     //Login and download the image
-    withDockerRegistry(registry: [url: 'https://' + dockerRegistry, credentialsId: 'jenkins-tooluser']) {
+    //withDockerRegistry(registry: [url: 'https://' + dockerRegistry, credentialsId: 'jenkins-tooluser']) {
         sh("docker pull ${dockerImage}");
-    }
+    //}
 
-    withDockerContainer(image: dockerImage) {
-        body();
-    }
+   // withDockerContainer(image: dockerImage) {
+     //   body();
+   // }
 }
 
 /* Use dpkg-source and dpkg-buildpackage to execute a complex package build */
