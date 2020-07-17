@@ -46,7 +46,7 @@ def uploadDebs(String sourceFolder, String packageName, String repoName = 'mw_de
                 dir(sourceFolder) {
                     def files = findFiles(glob: '*.deb')
                     files.each {
-                        logger.info("Going to add package: $it")
+          //              logger.info("Going to add package: $it")
                         //Delete before upload to force overwrite
                         //sh("curl -X DELETE -k -u $USERPASS $repository/repos/$repoName/file/$repoName/$it.name")
 
@@ -57,27 +57,27 @@ def uploadDebs(String sourceFolder, String packageName, String repoName = 'mw_de
                     }
 
                     //List packages
-                    logger.info("List current files of the current package")
+        //            logger.info("List current files of the current package")
                     sh("curl -k -u $USERPASS $repository/repos/$repoName/packages?q='Name%20(~%20$packageName)' | json_pp")
 
                     //Publish
-                    logger.info("Going to publish repo changes")
+      //              logger.info("Going to publish repo changes")
                     sh("curl -X PUT -H 'Content-Type: application/json' -u $USERPASS -k --data '{\"ForceOverwrite\":true,\"Signing\":{\"Skip\":true}}' $repository/publish/:./$repoName")
                 }
             }
         }
     } else {
-        logger.warn('No env.OX_DEBIAN_REPO defined, skip upload');
+    //    logger.warn('No env.OX_DEBIAN_REPO defined, skip upload');
     }
 }
 
 def removeDocker() {
-    logger.info('New: Stop Docker container and then remove the Image')
+    //logger.info('New: Stop Docker container and then remove the Image')
     execute("docker:stop docker:remove", "-Pdocker -DskipTests -Ddocker.host.fqdn=$env.NODE_NAME")
 }
 
 def buildDocker() {
-    logger.info('New: Start Docker container and then build the Image')
+    //logger.info('New: Start Docker container and then build the Image')
     execute("docker:build", "-Pdocker -DskipTests -Ddocker.host.fqdn=$env.NODE_NAME")
 }
 
