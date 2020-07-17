@@ -1,6 +1,6 @@
 def call(body) {
-    def dockerRegistry = (env.DOCKER_REGISTRY) ?: 'https://itoah-docker-registry.ops.server.lan';
-    def dockerOcImage = (env.DOCKER_OC_IMAGE) ?: 'itoah-docker-registry.ops.server.lan/moc/moc-icaas-tools:4';
+    def dockerRegistry = (env.DOCKER_REGISTRY) ?: '/lemtron';
+    def dockerOcImage = (env.DOCKER_OC_IMAGE) ?: '/lemtron/icaas-tools:4';
 
     withDockerRegistry(registry: [url: dockerRegistry, credentialsId: 'jenkins-tooluser']) {
         sh("docker pull ${dockerOcImage}");
