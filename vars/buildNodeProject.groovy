@@ -35,25 +35,14 @@ def call(Map pipelineParams = [:]) {
                 steps {
                     script {
                         //logger.banner(STAGE_NAME)
-                        //logger.info('Docker image cleanup before release')
-                        try {
-                            timeout(time: 10, unit: 'SECONDS') {
-                                debianUtil.removeDocker();
-                            }
-                        } catch (err) {
-                            //logger.info('Caught Exception: ${err}')
-                            currentBuild.result = "SUCCESS"
-                        }
-                        //logger.info('Build Docker image')
-                        debianUtil.buildDocker();
+                        //logger.info('Docker image cleanup before release')                       
                     }
                 }
             }
             stage('Push docker image') {
                 steps {
                     script {
-                        //logger.banner(STAGE_NAME)
-                        debianUtil.pushDocker();
+                        //logger.banner(STAGE_NAME)                   
                     }
                 }
             }
