@@ -39,9 +39,11 @@ def call(Map pipelineParams = [:]) {
                        script {
                          //git 'https://github.com/ZitronePlus/MOC.git'
                         //logger.banner(STAGE_NAME)
-                        //logger.info('Docker image cleanup before release')                         
-                        dockerImage = docker.build "lemtron/MOC"                        
-                    }
+                        //logger.info('Docker image cleanup before release') 
+                             docker.withRegistry( 'https://registry.hub.docker.com', 'dockerHub' ) {
+                        dockerImage = docker.build ("lemtron/MOC")                        
+                             }
+                       }
                 }
             }
             stage('Push docker image') {
