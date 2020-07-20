@@ -20,7 +20,7 @@ def call(Map pipelineParams = [:]) {
         environment {
             DEPLOY_APPLICATION = getDeployTarget(pipelineParams)
                 registry = "lemtron/docker-test"
-                registryCredential = ‘dockerHub’
+                registryCredential = "dockerHub"
             dockerImage = ''
         }
         stages {
