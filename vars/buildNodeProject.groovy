@@ -21,7 +21,7 @@ def call(Map pipelineParams = [:]) {
             DEPLOY_APPLICATION = getDeployTarget(pipelineParams)
                 registry = "lemtron/docker-test"
                 registryCredential = "dockerHub"
-            dockerImage = ''
+                dockerImage = ''
         }
         stages {
             stage('Setup') {
@@ -41,7 +41,7 @@ def call(Map pipelineParams = [:]) {
                         //logger.banner(STAGE_NAME)
                         //logger.info('Docker image cleanup before release') 
                              docker.withRegistry( 'https://registry.hub.docker.com', 'dockerHub' ) {
-                        dockerImage = docker.build ("lemtron/MOC")                        
+                             docker.build ("lemtron/MOC")                        
                              }
                        }
                 }
