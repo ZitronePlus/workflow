@@ -33,7 +33,15 @@ def call(Map pipelineParams = [:]) {
                         //logger.info("RELEASE_APPLICATION: $params.RELEASE_APPLICATION");                        
                     }
                 }
-            }           
+            }
+            stage('Build') {
+                 steps {
+                    script {                       
+                        sh "gulp build"
+                        sh "gulp dist"                        
+                    }
+                }
+            }
             stage('Build Docker Image') {
                 steps {                   
                        script {
